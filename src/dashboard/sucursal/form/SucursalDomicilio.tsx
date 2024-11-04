@@ -19,9 +19,8 @@ export const SucursalDomicilio: React.FC<FormularioDomicilioProps> = ({
 }) => {
   const [provincias, setProvincias] = useState<Provincia[]>([]);
   const [localidades, setLocalidades] = useState<Localidad[]>([]);
-  
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchProvincias = async () => {
       try {
         const provinciasData = await DomicilioService.getProvinciasByPais(1);
