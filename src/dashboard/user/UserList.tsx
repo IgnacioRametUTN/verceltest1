@@ -26,7 +26,10 @@ const UserList: React.FC = () => {
   const handleRoleChange = async (userId: number, newRole: Rol) => {
     try {
       const token = await getAccessTokenSilently();
+      // Actualizar el rol en el servidor
       await UsuarioService.updateUsuarioRol(userId, newRole, token);
+
+      // Actualizar el rol en el estado local para reflejar el cambio de inmediato
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user.id === userId ? { ...user, rol: newRole } : user
@@ -55,7 +58,6 @@ const UserList: React.FC = () => {
               <tr key={user.id}>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.rol}</td>
                 <td>
                   <select
                     value={user.rol}
