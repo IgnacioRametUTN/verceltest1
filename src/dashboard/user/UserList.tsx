@@ -20,7 +20,6 @@ const UserList: React.FC = () => {
       setUsers(fetchedUsers);
     } catch (error) {
       console.error("Error fetching users:", error);
-      // Podrías mostrar un mensaje de error en la interfaz si lo necesitas
     }
   };
 
@@ -28,10 +27,13 @@ const UserList: React.FC = () => {
     try {
       const token = await getAccessTokenSilently();
       await UsuarioService.updateUsuarioRol(userId, newRole, token);
-      fetchUsers(); // Refetch users to update the list
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, rol: newRole } : user
+        )
+      );
     } catch (error) {
       console.error("Error updating user role:", error);
-      // Podrías mostrar un mensaje de error en la interfaz si lo necesitas
     }
   };
 
